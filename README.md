@@ -1,4 +1,20 @@
-KafkaEx
+KafkaEx - Mechanical Orchard Patch
+========
+
+Patch contains changes required for internal projects
+* Do not reraise errors when there are binary parse failures in `KafkaEx.Server.network_request`. Instead log and allow the message to be skipped
+
+Not intended to merge upstream.
+
+========
+
+Instructions for updating kafka_ex:
+1. Pull from https://github.com/kafkaex/kafka_ex
+1. Push updated master and tags to https://github.com/mechanical-orchard/kafka_ex
+1. Rebase `mechanical-orchard-patch` on to new version tag (e.g.: `0.13.0`)
+1. Create tag based on new version tag (e.g.: `0.13.0-MO`)
+1. Update internal elixir project `mix.exs` to use this new tag
+
 ========
 
 [![CI Tests](https://github.com/kafkaex/kafka_ex/actions/workflows/test.yml/badge.svg)](https://github.com/kafkaex/kafka_ex/actions/workflows/test.yml)

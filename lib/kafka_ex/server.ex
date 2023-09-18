@@ -885,13 +885,10 @@ defmodule KafkaEx.Server do
                   rescue
                     _ ->
                       Logger.error(
-                        "Failed to parse a response from the server: #{inspect(response)}"
+                        "Parse error during #{inspect(module)}.parse_response. [#{request.topic}/#{request.partition}/#{request.offset}] Couldn't parse: #{inspect(response, limit: :infinity)}"
                       )
 
-                      Kernel.reraise(
-                        "Parse error during #{inspect(module)}.parse_response. Couldn't parse: #{inspect(response)}",
-                        System.stacktrace()
-                      )
+                      # Skip this invalid message and move on to the next one
                   end
               end
 
