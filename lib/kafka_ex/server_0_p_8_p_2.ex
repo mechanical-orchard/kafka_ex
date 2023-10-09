@@ -284,6 +284,14 @@ defmodule KafkaEx.Server0P8P2 do
               )
 
               nil
+
+            :ok ->
+              Logger.log(
+                :error,
+                "Not able to retrieve the last offset, the kafka server is probably throttling your requests"
+              )
+
+              nil
           end
 
         if last_offset != nil && request.auto_commit do
