@@ -299,6 +299,12 @@ defmodule KafkaEx.Server0P8P2 do
         else
           {response, state_out}
         end
+      {:ok, state_out} ->
+        Logger.log(
+          :error,
+          "Unparsable message at offset #{last_offset}"
+        )
+        {nil, state_out}
     end
   end
 
