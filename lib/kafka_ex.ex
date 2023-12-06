@@ -782,18 +782,20 @@ defmodule KafkaEx do
     max_restarts = Application.get_env(:kafka_ex, :max_restarts, 10)
     max_seconds = Application.get_env(:kafka_ex, :max_seconds, 60)
 
-    {:ok, pid} =
-      KafkaEx.Supervisor.start_link(
-        max_restarts,
-        max_seconds
-      )
+    if Application.get_env(:kafka_ex, :enabled?) do
+      {:ok, pid} =
+        KafkaEx.Supervisor.start_link(
+          max_restarts,
+          max_seconds
+        )
 
-    if Config.disable_default_worker() do
-      {:ok, pid}
-    else
-      case KafkaEx.create_worker(Config.default_worker(), []) do
-        {:error, reason} -> {:error, reason}
-        {:ok, _} -> {:ok, pid}
+      if Config.disable_default_worker() do
+        {:ok, pid}
+      else
+        case KafkaEx.create_worker(Config.default_worker(), []) do
+          {:error, reason} -> {:error, reason}
+          {:ok, _} -> {:ok, pid}
+        end
       end
     end
   end

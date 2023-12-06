@@ -3,6 +3,7 @@ KafkaEx - Mechanical Orchard Patch
 
 Patch contains changes required for internal projects
 * Do not reraise errors when there are binary parse failures in `KafkaEx.Server.network_request`. Instead log and allow the message to be skipped
+* Allow disabling of KafkaEx application for app profiles that don't need Kafka
 
 Not intended to merge upstream.
 
